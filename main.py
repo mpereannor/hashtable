@@ -37,7 +37,31 @@ def insert(self, key, value):
   #increment size
   self.size += 1
   #compute index of key using hash function
+  index = self.hash(key)
+  #create new node if bucket at index is empty
+  node = self.buckets[index]
+  if node is None:
+    self.buckets[index] = Node(key, value)
+    return
+  prev = node
+  while node is not None: 
+    #collision, at least a node at this index
+    #iterate to the end of the list and add new node with provided key / value 
+    prev  = node
+    node = node.next
+    prev.next = Node(key, value)
   
+def find(self, key):
+  #compute index of key using hash function 
+  index = self.hash(key)
+  #go to first node in list at bucket
+  node = self.buckets[index]
+  #traverse linked list at this node 
+  while node is not None and node.key != key:
+    node =  node.next
+  #node is the requested key/value pair or None
+  if node is None:
+    return None
 
-
-
+  else: 
+    return node.value
