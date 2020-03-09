@@ -65,3 +65,26 @@ def find(self, key):
 
   else: 
     return node.value
+
+def remove(self, key):
+  #compute index of key using hash function
+  index = self.hash(key)
+  node = self.buckets[index]
+  prev = None
+
+  #iterate to the requested node 
+  while node is not None and node.key != key: 
+    prev = node
+    node = node.next
+    #node is the requested node open
+  if node is None: 
+    return None
+  else: 
+    self.size -= 1
+    result = node.value
+    if prev is None:
+      self.buckets[index] = node.next
+    else:
+      prev.next = prev.next.next
+
+    return result
